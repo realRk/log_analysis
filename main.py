@@ -1,22 +1,27 @@
 import psycopg2
 
-query_1 = ("select authors.name ,count(log.path) as num from authors,log,arti"
-    "cles where log.path like concat('%',articles.slug,'%') and log.status li"
-    "ke ('%OK%') and authors.id = articles.author  group by authors.name orde"
-    "r by num desc")
+query_1 = (
+    "select authors.name ,count(log.path) as num from authors,log,"
+    "articles where log.path like concat('%',articles.slug,'%') and "
+    "log.status like ('%OK%') and authors.id = articles.author  group by"
+    " authors.name order by num desc")
 
 
-query_2 = ("select articles.title, count(log.path) as num from articles,author"
-    "s,log where log.status like('%OK%') and log.path like concat('%',article"
-    "s.slug,'%') and articles.author = authors.id group by articles.title ord"
-    "er by num desc limit 3")
+query_2 = (
+    "select articles.title, count(log.path) as num from articles,"
+    "authors,log where log.status like('%OK%') and log.path like "
+    "concat('%',articles.slug,'%') and articles.author = authors.id"
+    " group by articles.title order by num desc limit 3")
 
-query_3 = ("select day, perc from (select day, round((sum(requests)/(select c"
-    "ount(*) from log where substring(cast(log.time as text), 0, 11) = day) *"
-    " 100),2) as perc from (select substring(cast(log.time as text), 0, 11) a"
-    "s day, count(*) as requests from log where status like '%NOT%' group by "
-    "day)as log_percentage group by day order by perc desc) as final_query wh"
-    "ere perc >= 1")
+query_3 = (
+    "select day, perc from ("
+    "select day, round((sum(requests)/("
+    "select count(*) from log where substring(cast(log.time as text), 0, 11) "
+    "= day) * 100),2) as perc from ("
+    "select substring(cast(log.time as text), 0, 11) as day, count(*) as "
+    "requests from log where status like '%NOT%' group by day)as"
+    " log_percentage group by day order by perc desc) as final_query "
+    "where perc >= 1")
 
 
 def connect(db_nm="news"):
