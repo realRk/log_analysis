@@ -32,13 +32,7 @@ def get_results(query):
     cursor.execute(query)
     results = cursor.fetchall()
     db.close()
-<<<<<<< HEAD
     return results
-||||||| merged common ancestors
-=======
-    return results
-    
->>>>>>> 02f3304db6b637f14de68a8099c72bbfd65b6f65
 
 
 def print_results(rslt):
