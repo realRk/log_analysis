@@ -45,7 +45,7 @@ def get_results(query):
 
 def print_results(rslt):
     for row in rslt:
-        print(rslt.index(row)+1, "-", row[0], "-", row[1])
+        print("{}. {} - {}".format(rslt.index(row)+1, row[0], row[1]))
 
 
 if __name__ == "__main__":
