@@ -38,8 +38,9 @@ def get_results(query):
     db, cursor = connect()
     cursor.execute(query)
     results = cursor.fetchall()
-    return results
     db.close()
+    return results
+    
 
 
 def print_results(rslt):
